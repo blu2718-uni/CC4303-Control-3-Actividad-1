@@ -1,6 +1,9 @@
 import socket
 import sys
 
+BUFFER_SIZE = 1024
+sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
 def tabulador(archivo):
     tabla = []
     with open(archivo, encoding="utf-8") as a:
@@ -13,10 +16,14 @@ if (len(sys.argv) != 4):
     sys.exit()
 else:
     ip = str(sys.argv[1])
-    puerto = str(sys.argv[2])
+    puerto = int(sys.argv[2])
     tabla = tabulador(sys.argv[3])
 
 print("ip: ", ip)
 print("puerto: ", puerto)
 print("tabla: ", tabla)
 
+sckt.bind((ip, puerto))
+
+while True:
+    message, direccion = sckt.recvfrom(BUFFER_SIZE)
