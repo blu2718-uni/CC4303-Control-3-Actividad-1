@@ -1,0 +1,3 @@
+round robin es basicamente listas circulares de las rutas
+
+no modifiquen tablas de rutas pls, leer y almacenar la info en memoria y era (en un combo diccionario/lista)
