@@ -12,8 +12,11 @@ if (len(sys.argv) != 4):
     print("Se esperan 3 argumentos: IP, puerto y tabla de rutas")
     sys.exit()
 else:
-    ip = int(sys.argv[1])
-    puerto = int(sys.argv[2])
+    ip = str(sys.argv[1])
+    puerto = str(sys.argv[2])
     tabla = tabulador(sys.argv[3])
 
+print("ip: ", ip)
+print("puerto: ", puerto)
+print("tabla: ", tabla)
 
