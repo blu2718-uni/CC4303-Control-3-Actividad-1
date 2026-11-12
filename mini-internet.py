@@ -4,6 +4,12 @@ import sys
 BUFFER_SIZE = 1024
 sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+def parse_packet(IP_packet):
+    return message
+
+def create_packet(parsed_IP_packet):
+    return packet
+
 def tabulador(archivo):
     tabla = []
     with open(archivo, encoding="utf-8") as a:
