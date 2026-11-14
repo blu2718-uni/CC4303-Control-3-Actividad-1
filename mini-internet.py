@@ -1,6 +1,8 @@
 import socket
 import sys
 
+from parse_create import *
+
 BUFFER_SIZE = 1024
 sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -17,13 +19,17 @@ if (len(sys.argv) != 4):
 else:
     ip = str(sys.argv[1])
     puerto = int(sys.argv[2])
+    dir = (ip, puerto)
     tabla = tabulador(sys.argv[3])
 
 print("ip: ", ip)
 print("puerto: ", puerto)
 print("tabla: ", tabla)
 
-sckt.bind((ip, puerto))
+def send_parse(r_f, message, r_i):
+    return
+
+sckt.bind(dir)
 
 while True:
     message, direccion = sckt.recvfrom(BUFFER_SIZE)
