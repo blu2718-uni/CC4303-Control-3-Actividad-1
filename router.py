@@ -1,7 +1,7 @@
 import socket
 import sys
 
-from parse_create import *
+from parser import *
 
 BUFFER_SIZE = 1024
 sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
