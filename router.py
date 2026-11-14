@@ -34,27 +34,28 @@ def tabulador(archivo):
 
     return tabla
 
-if (len(sys.argv) != 4):
-    print("Uso: IP, puerto y tabla de rutas")
-    sys.exit()
-else:
-    ip = str(sys.argv[1])
-    puerto = int(sys.argv[2])
-    dir = (ip, puerto)
-    tabla = tabulador(sys.argv[3])
-
-print("ip: ", ip)
-print("puerto: ", puerto)
-print("tabla: ", tabla)
-
-sckt.bind(dir)
-
-while True:
-    message, direccion = sckt.recvfrom(BUFFER_SIZE)
-    message_parseado = parse_packet(message)
-    if (message_parseado["IP"] == ip and message_parseado["Puerto"] == puerto):
-        print(f"Se recibió un mensaje de: {direccion}")
-        print(message_parseado["Mensaje"].decode())
+if __name__ == "__main__":
+    if (len(sys.argv) != 4):
+        print("Uso: IP, puerto y tabla de rutas")
+        sys.exit()
     else:
-        print(f"Se recibió un mensaje de: {direccion}")
-        print(f"Fué reenviado a {direccion_salida}:{puerto_salida}")
+        ip = str(sys.argv[1])
+        puerto = int(sys.argv[2])
+        dir = (ip, puerto)
+        tabla = tabulador(sys.argv[3])
+
+    print("ip: ", ip)
+    print("puerto: ", puerto)
+    print("tabla: ", tabla)
+
+    sckt.bind(dir)
+
+    while True:
+        message, direccion = sckt.recvfrom(BUFFER_SIZE)
+        message_parseado = parse_packet(message)
+        if (message_parseado["IP"] == ip and message_parseado["Puerto"] == puerto):
+            print(f"Se recibió un mensaje de: {direccion}")
+            print(message_parseado["Mensaje"].decode())
+        else:
+            print(f"Se recibió un mensaje de: {direccion}")
+            print(f"Fué reenviado a {direccion_salida}:{puerto_salida}")
