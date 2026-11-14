@@ -26,9 +26,6 @@ print("ip: ", ip)
 print("puerto: ", puerto)
 print("tabla: ", tabla)
 
-def send_parse(r_f, message, r_i):
-    return
-
 sckt.bind(dir)
 
 while True:
