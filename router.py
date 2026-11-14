@@ -8,13 +8,15 @@ sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def tabulador(archivo):
     tabla = []
+
     with open(archivo, encoding="utf-8") as a:
         for linea in a:
             tabla.append(linea.split())
+
     return tabla
 
 if (len(sys.argv) != 4):
-    print("Se esperan 3 argumentos: IP, puerto y tabla de rutas")
+    print("Uso: IP, puerto y tabla de rutas")
     sys.exit()
 else:
     ip = str(sys.argv[1])
@@ -30,3 +32,7 @@ sckt.bind(dir)
 
 while True:
     message, direccion = sckt.recvfrom(BUFFER_SIZE)
+    message_parseado = parse_packet(message)
+    if (message_parseado["IP"] == ip and message_parseado["Puerto"] == puerto):
+        print(f"Se recibió un mensaje de: {direccion}")
+        print(message_parseado["Mensaje"].decode())
