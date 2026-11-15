@@ -42,7 +42,7 @@ if __name__ == "__main__":
         ip = str(sys.argv[1])
         puerto = int(sys.argv[2])
         dir = (ip, puerto)
-        tabla = tabulador(sys.argv[3])
+        tabla = sys.argv[3]
 
     print("ip: ", ip)
     print("puerto: ", puerto)
@@ -51,11 +51,16 @@ if __name__ == "__main__":
     sckt.bind(dir)
 
     while True:
-        message, direccion = sckt.recvfrom(BUFFER_SIZE)
-        message_parseado = parse_packet(message)
-        if (message_parseado["IP"] == ip and message_parseado["Puerto"] == puerto):
+        mensaje, direccion = sckt.recvfrom(BUFFER_SIZE)
+        mensaje_parseado = parse_packet(mensaje)
+        if (mensaje_parseado["IP"] == ip and mensaje_parseado["Puerto"] == puerto):
             print(f"Se recibió un mensaje de: {direccion}")
-            print(message_parseado["Mensaje"].decode())
+            print(mensaje_parseado["Mensaje"].decode())
         else:
             print(f"Se recibió un mensaje de: {direccion}")
-            print(f"Fué reenviado a {direccion_salida}:{puerto_salida}")
+            siguiente_salto = check_routes(tabla, (mensaje_parseado["IP"], mensaje_parseado["Puerto"]))
+            if siguiente_salto != None:
+                print(f"Redirigiendo paquete '{mensaje_parseado["Mensaje"].decode()}' con destino final ({mensaje_parseado["IP"]}, {mensaje_parseado["Puerto"]}) desde ({ip}, {puerto}) hacia {siguiente_salto}")
+                sckt.sendto(mensaje, siguiente_salto)
+            else:
+                print(f"No hay rutas hacia ({mensaje_parseado["IP"]}, {mensaje_parseado["Puerto"]}) para el paquete '{mensaje_parseado["Mensaje"].decode()}'")
