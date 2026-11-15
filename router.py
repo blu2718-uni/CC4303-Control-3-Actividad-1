@@ -6,6 +6,16 @@ from parser import *
 BUFFER_SIZE = 1024
 TEXT_LEN = 32
 sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+rutas = {}
+
+def cargar_rutas(archivo):
+    for linea in tabulador(archivo):
+        clave = (linea["Red"], linea["Puerto Inicial"], linea["Puerto Final"])
+        if clave in rutas:
+            rutas[clave].append((linea["IP Salto"], linea["Puerto Salto"]))
+        else:
+            rutas[clave] = [(linea["IP Salto"], linea["Puerto Salto"])]
+
 
 def en_red(ip, red):
     red_ip, prefijo = red.split("/")
@@ -14,16 +24,17 @@ def en_red(ip, red):
 
 
 def check_routes(routes_file_name, destination_address):
-    estructurado = tabulador(routes_file_name)
+    if not rutas:
+        cargar_rutas(routes_file_name)
+    
+    ip_dest, puerto_dest = destination_address
 
-    for linea in estructurado:
-        if (
-            linea["Puerto Inicial"] <= destination_address[1]
-            and linea["Puerto Final"] >= destination_address[1]
-            and en_red(destination_address[0], linea["Red"])
-        ):
-            return (linea["IP Salto"], linea["Puerto Salto"])
-
+    for red in rutas:
+        if red[1] <= puerto_dest <= red[2] and en_red(ip_dest, red[0]):
+            salto = rutas[red].pop(0)
+            rutas[red].append(salto)
+            return salto
+    
     return None
 
 
