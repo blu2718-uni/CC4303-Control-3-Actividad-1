@@ -3,14 +3,18 @@ import sys
 from parser import *
 
 if len(sys.argv) != 6:
-    print("Uso: enviar.py IP_router_final puerto_router_final mensaje IP_envio puerto_envio")
+    print(
+        "Uso: enviar.py IP_router_final puerto_router_final mensaje IP_envio puerto_envio"
+    )
     sys.exit()
 
 ip_final, puerto_final, mensaje, ip_envio, puerto_envio = sys.argv[1:]
 
-paquete_plain = {"IP": ip_final,
-                 "Puerto": int(puerto_final),
-                 "Mensaje": mensaje.encode()}
+paquete_plain = {
+    "IP": ip_final,
+    "Puerto": int(puerto_final),
+    "Mensaje": mensaje.encode(),
+}
 
 paquete_bytes = create_packet(paquete_plain)
 
