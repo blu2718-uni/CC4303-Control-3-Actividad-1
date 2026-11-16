@@ -10,7 +10,7 @@ Se asume que los prefijos de red son múltiplos de 8 siempre.
 
 A la hora de agregar un router default, el salto a ese router debe ubicarse al final de cada tabla de ruta que no sea la default. Por otro lado, la tabla de rutas del router default ha de apuntar directamente a cada uno de los otros routers.
 
-La tabla de rutas del router default (`rutas_Rd_v5.txt`) es:
+La tabla de rutas del router default (`rutas/v5/rutas_Rd_v5.txt`) es:
 
 ```
 127.0.0.1/24 8880 8880 127.0.0.1 8880
@@ -30,14 +30,14 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
 
    Las tablas v4 son idénticas a las v5, pero sin la última línea (el salto al router default), y en v4 no existe Rd. La tabla de Rd está más arriba; el resto de las tablas v5 son:
 
-   `rutas_R0_v5.txt`
+   `rutas/v5/rutas_R0_v5.txt`
    ```
    127.0.0.1/24 8881 8881 127.0.0.1 8881
    127.0.0.1/24 8882 8886 127.0.0.1 8882
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R1_v5.txt`
+   `rutas/v5/rutas_R1_v5.txt`
    ```
    127.0.0.1/24 8880 8880 127.0.0.1 8880
    127.0.0.1/24 8882 8886 127.0.0.1 8882
@@ -45,7 +45,7 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R2_v5.txt`
+   `rutas/v5/rutas_R2_v5.txt`
    ```
    127.0.0.1/24 8880 8881 127.0.0.1 8881
    127.0.0.1/24 8880 8881 127.0.0.1 8880
@@ -55,7 +55,7 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R3_v5.txt`
+   `rutas/v5/rutas_R3_v5.txt`
    ```
    127.0.0.1/24 8880 8882 127.0.0.1 8882
    127.0.0.1/24 8880 8882 127.0.0.1 8885
@@ -66,7 +66,7 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R4_v5.txt`
+   `rutas/v5/rutas_R4_v5.txt`
    ```
    127.0.0.1/24 8880 8883 127.0.0.1 8882
    127.0.0.1/24 8880 8883 127.0.0.1 8885
@@ -75,7 +75,7 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R5_v5.txt`
+   `rutas/v5/rutas_R5_v5.txt`
    ```
    127.0.0.1/24 8880 8884 127.0.0.1 8884
    127.0.0.1/24 8880 8884 127.0.0.1 8883
@@ -83,7 +83,7 @@ Haciendo el test de Mini-Internet sin TTL, tenemos los siguientes resultados:
    127.0.0.1/24 0 65535 127.0.0.1 7000
    ```
 
-   `rutas_R6_v5.txt`
+   `rutas/v5/rutas_R6_v5.txt`
    ```
    127.0.0.1/24 8880 8882 127.0.0.1 8882
    127.0.0.1/24 8883 8885 127.0.0.1 8883
