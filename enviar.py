@@ -2,7 +2,7 @@ import socket
 import sys
 from parser import *
 
-if len(sys.argv) != 6:
+if len(sys.argv) != 7:
     print(
         "Uso: enviar.py IP_router_final puerto_router_final ttl mensaje IP_envio puerto_envio"
     )

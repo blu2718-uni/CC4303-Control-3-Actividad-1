@@ -78,8 +78,9 @@ if __name__ == "__main__":
         mensaje_parseado = parse_packet(mensaje)
 
         print("="*TEXT_LEN)
-
-        if mensaje_parseado["IP"] == ip and mensaje_parseado["Puerto"] == puerto:
+        if mensaje_parseado["TTL"] <= 0:
+            print(f"Se recibió paquete {mensaje_parseado["Mensaje"]} con TTL {mensaje_parseado["TTL"]}")
+        elif mensaje_parseado["IP"] == ip and mensaje_parseado["Puerto"] == puerto:
             print(f"Se recibió un mensaje de: {direccion}")
             print(mensaje_parseado["Mensaje"].decode())
         else:
@@ -92,7 +93,9 @@ if __name__ == "__main__":
                 print(
                     f"Redirigiendo paquete '{mensaje_parseado['Mensaje'].decode()}' con destino final ('{mensaje_parseado['IP']}', {mensaje_parseado['Puerto']}) desde ('{ip}', {puerto}) hacia {siguiente_salto}"
                 )
-                sckt.sendto(mensaje, siguiente_salto)
+                mensaje_parseado["TTL"] -= 1
+                mensaje_reenviar = create_packet(mensaje_parseado)
+                sckt.sendto(mensaje_reenviar, siguiente_salto)
             else:
                 print(
                     f"No hay rutas hacia ('{mensaje_parseado['IP']}', {mensaje_parseado['Puerto']}) para el paquete '{mensaje_parseado['Mensaje'].decode()}'"
